@@ -34,7 +34,6 @@
 			overflow: hidden;
 		}
 
-		/* Background image */
 		.bg {
 			position: fixed;
 			inset: 0;
@@ -82,7 +81,6 @@
 			overflow: hidden;
 		}
 
-		/* ===== Header (fix Mission Control cutoff) ===== */
 		header {
 			display: flex;
 			align-items: center;
@@ -92,7 +90,6 @@
 			background: linear-gradient(180deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
 			gap: 10px;
 			flex-wrap: wrap;
-			/* key fix */
 		}
 
 		.brand {
@@ -165,7 +162,6 @@
 			background: rgba(255, 255, 255, 0.12);
 		}
 
-		/* ===== Model bar (fix description cutoff) ===== */
 		.modelBar {
 			padding: 12px 14px;
 			border-bottom: 1px solid var(--border);
@@ -199,7 +195,6 @@
 
 		.modelMeta {
 			min-width: 0;
-			/* critical for ellipsis/wrap behavior */
 		}
 
 		.modelDesc {
@@ -207,7 +202,6 @@
 			color: rgba(255, 255, 255, 0.78);
 			line-height: 1.35;
 			white-space: normal;
-			/* allow wrap */
 			overflow-wrap: anywhere;
 		}
 
@@ -271,7 +265,7 @@
 
 		.meta {
 			display: flex;
-			gap: 8px;
+			gap: 10px;
 			align-items: baseline;
 			margin-bottom: 6px;
 		}
@@ -310,7 +304,6 @@
 			background: linear-gradient(0deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
 		}
 
-		/* ===== Composer (fix Clear/Send on mobile) ===== */
 		.composer {
 			display: grid;
 			grid-template-columns: 1fr auto;
@@ -339,18 +332,14 @@
 		.actions {
 			display: flex;
 			gap: 12px;
-			/* more breathing room */
 			flex-wrap: wrap;
 			justify-content: flex-end;
 		}
 
 		.btn {
 			height: 52px;
-			/* taller = more tappable */
 			padding: 0 18px;
-			/* more horizontal space */
 			border-radius: 16px;
-			/* softer, more “theme” */
 			border: 1px solid rgba(255, 255, 255, 0.18);
 			background: rgba(255, 255, 255, 0.10);
 			color: rgba(255, 255, 255, 0.95);
@@ -362,23 +351,17 @@
 			justify-content: center;
 			gap: 8px;
 			min-width: 120px;
-			/* prevents squishing */
 			transition: transform 0.08s ease, background 0.15s ease;
 		}
 
 		#send {
-			background: linear-gradient(180deg,
-					rgba(255, 255, 255, 0.22),
-					rgba(255, 255, 255, 0.10));
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.10));
 			border-color: rgba(255, 255, 255, 0.28);
 		}
 
 		#send:hover {
-			background: linear-gradient(180deg,
-					rgba(255, 255, 255, 0.28),
-					rgba(255, 255, 255, 0.14));
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.14));
 		}
-
 
 		.btn:hover {
 			background: rgba(255, 255, 255, 0.16);
@@ -386,17 +369,86 @@
 		}
 
 		.btn:disabled {
-			opacity: 0.55;
+			opacity: 0.5;
 			cursor: not-allowed;
+			transform: none;
+		}
+
+		.hintRow {
+			margin-top: 10px;
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-between;
+			gap: 12px;
+			flex-wrap: wrap;
 		}
 
 		.hint {
-			margin-top: 8px;
 			font-size: 12px;
 			color: rgba(255, 255, 255, 0.62);
+			line-height: 1.35;
 		}
 
-		/* Thinking indicator */
+		.telemetry {
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.62);
+			text-align: right;
+			white-space: nowrap;
+		}
+
+		.turnstileRow {
+			margin-top: 10px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		.turnstileBox {
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			background: rgba(7, 9, 22, 0.30);
+			border-radius: 14px;
+			padding: 10px 12px;
+			min-height: 64px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.humanStatus {
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.70);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			white-space: nowrap;
+		}
+
+		.pulse {
+			width: 10px;
+			height: 10px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.25);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.25);
+			animation: pulse 1.6s infinite;
+		}
+
+		@keyframes pulse {
+			0% {
+				box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.20);
+			}
+
+			70% {
+				box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.00);
+			}
+
+			100% {
+				box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.00);
+			}
+		}
+
 		.thinkingRow {
 			display: inline-flex;
 			align-items: center;
@@ -437,7 +489,6 @@
 			}
 		}
 
-		/* ===== Mobile fixes ===== */
 		@media (max-width: 720px) {
 			.app {
 				height: 100%;
@@ -465,10 +516,14 @@
 				min-width: 0;
 			}
 
-
 			.headerActions {
 				width: 100%;
 				justify-content: flex-end;
+			}
+
+			.telemetry {
+				text-align: left;
+				white-space: normal;
 			}
 		}
 
@@ -488,6 +543,17 @@
 			}
 		}
 	</style>
+
+	<script>
+		// Turnstile onload callback name used in the script URL below
+		window.onTurnstileLoad = function () {
+			window.__turnstileReady = true;
+			window.dispatchEvent(new Event("turnstile-ready"));
+		};
+	</script>
+
+	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" async
+		defer></script>
 </head>
 
 <body>
@@ -500,12 +566,12 @@
 					<div class="logo" aria-hidden="true">🪐</div>
 					<div class="title">
 						<strong>Space Talk</strong>
-						<span>an edge-deployed oracle</span>
+						<span>an edge-deployed star</span>
 					</div>
 				</div>
 
 				<div class="headerActions">
-					<button id="mission" class="chipButton" type="button" title="Mission Control">
+					<button id="mission" class="chipButton" type="button" title="Mission Control 🧑‍🚀">
 						Mission Control
 					</button>
 				</div>
@@ -514,7 +580,7 @@
 			<section class="modelBar" aria-label="Model selector">
 				<div class="modelGrid">
 					<div>
-						<div class="label">Oracle engine</div>
+						<div class="label">Engine</div>
 						<select id="model"></select>
 					</div>
 
@@ -539,12 +605,26 @@
 						spellcheck="true"></textarea>
 					<div class="actions">
 						<button id="clear" class="btn" type="button" title="Clear chat">Clear</button>
-						<button id="send" class="btn" type="submit">Send</button>
+						<button id="send" class="btn" type="submit" disabled>Send</button>
 					</div>
 				</form>
-				<div class="hint">
-					Tip: If you want better answers, include constraints (timeframe, budget, goal) — that’s your
-					“mission profile.”
+
+				<div class="turnstileRow">
+					<div class="turnstileBox">
+						<div id="turnstileWidget"></div>
+					</div>
+					<div class="humanStatus" id="humanStatus">
+						<span class="pulse" aria-hidden="true"></span>
+						<span id="humanText">Human check: loading…</span>
+					</div>
+				</div>
+
+				<div class="hintRow">
+					<div class="hint">
+						Tip: Use a sleeping bag tied to the wall so you don't float into an air vent or control panel
+						while asleep.
+					</div>
+					<div class="telemetry" id="telemetry">—</div>
 				</div>
 			</footer>
 		</div>
@@ -563,40 +643,44 @@
 		const powerEl = document.getElementById("power");
 		const missionBtn = document.getElementById("mission");
 
+		const telemetryEl = document.getElementById("telemetry");
+		const humanTextEl = document.getElementById("humanText");
+		const humanDotEl = document.querySelector("#humanStatus .pulse");
+
 		let thinkingEl = null;
 
-		// Pick a small subset of "good general chat" free-tier models
+		// === Turnstile state ===
+		const TURNSTILE_SITE_KEY = "0x4AAAAAACHq1QoNUW3IfzQr";
+		let turnstileWidgetId = null;
+		let turnstileToken = null;
+
+		// Engines
 		const MODELS = [
 			{
 				id: "@cf/mistral/mistral-7b-instruct-v0.2-lora",
 				name: "🜁 Mistral 7B Instruct (LoRA)",
-				desc: "Mission-capable generalist. Strong instruction-following, clean structure, and reliable reasoning for most prompts.",
+				desc: "Fast mission generalist: clean structure, good instruction-following, reliable step-by-step for most prompts.",
 				power: 4,
-				tier: "Free-tier",
 				avatar: "🜁",
 			},
 			{
 				id: "@cf/meta-llama/llama-2-7b-chat-hf-lora",
 				name: "🜂 Llama 2 7B Chat (HF LoRA)",
-				desc: "Steady deep-space cruiser. Natural conversational tone and solid summaries; less sharp on strict step-by-step tasks than Mistral.",
+				desc: "Deep-space conversationalist: smooth tone, solid summaries, best for discussion and rewrites.",
 				power: 3,
-				tier: "Free-tier",
 				avatar: "🜂",
 			},
 			{
 				id: "@cf/google/gemma-2b-it-lora",
 				name: "🜃 Gemma 2B IT (LoRA)",
-				desc: "Pocket probe for quick scans. Best for short, direct requests; limited depth on complex reasoning and longer multi-part missions.",
+				desc: "Pocket probe: quick answers and short tasks; keep prompts tight for best results.",
 				power: 2,
-				tier: "Free-tier",
 				avatar: "🜃",
 			},
 		];
 
 		function stars(n) {
-			const full = "★".repeat(n);
-			const empty = "☆".repeat(5 - n);
-			return full + empty;
+			return "★".repeat(n) + "☆".repeat(5 - n);
 		}
 
 		function nowTime() {
@@ -633,9 +717,9 @@
 			const meta = document.createElement("div");
 			meta.className = "meta";
 			meta.innerHTML = `
-        <span class="who">${nameOverride ?? (role === "user" ? "You" : "The Sentinel ")}</span>
-        <span class="when">${nowTime()}</span>
-      `;
+				<span class="who">${nameOverride ?? (role === "user" ? "You" : "The Sentinel")}</span>
+				<span class="when">${nowTime()}</span>
+			`;
 
 			const body = document.createElement("div");
 			body.innerHTML = isHtml ? text : escapeHtml(text).replaceAll("\n", "<br/>");
@@ -651,40 +735,6 @@
 			return wrap;
 		}
 
-		function setSending(isSending) {
-			sendBtn.disabled = isSending;
-			promptEl.disabled = isSending;
-			clearBtn.disabled = isSending;
-			modelSelect.disabled = isSending;
-			missionBtn.disabled = isSending;
-		}
-
-		function showThinking() {
-			if (thinkingEl) return;
-			const current = MODELS.find(m => m.id === modelSelect.value) ?? MODELS[0];
-
-			thinkingEl = addMessage({
-				role: "assistant",
-				isHtml: true,
-				avatarOverride: current.avatar,
-				nameOverride: "The Sentinel",
-				text: `
-          <div class="thinkingRow">
-            <span class="orbit" aria-hidden="true"></span>
-            <span style="color: rgba(255,255,255,0.78); font-size: 13px;">
-              Charting a path through the nebula…
-            </span>
-          </div>
-        `,
-			});
-		}
-
-		function hideThinking() {
-			if (!thinkingEl) return;
-			thinkingEl.remove();
-			thinkingEl = null;
-		}
-
 		function autosize() {
 			promptEl.style.height = "auto";
 			promptEl.style.height = Math.min(promptEl.scrollHeight, 180) + "px";
@@ -697,7 +747,6 @@
 			powerEl.textContent = `Power: ${stars(m.power)}`;
 		}
 
-		// Populate model selector
 		for (const m of MODELS) {
 			const opt = document.createElement("option");
 			opt.value = m.id;
@@ -706,134 +755,100 @@
 		}
 		modelSelect.value = MODELS[0].id;
 		setModelUI(modelSelect.value);
+		modelSelect.addEventListener("change", () => setModelUI(modelSelect.value));
 
-		modelSelect.addEventListener("change", () => {
-			setModelUI(modelSelect.value);
-		});
+		function setHumanStatus(text, state) {
+			humanTextEl.textContent = text;
 
-		function pad2(n) { return String(n).padStart(2, "0"); }
-
-		function formatUtcOffset(minutesOffset) {
-			// minutesOffset is "minutes behind UTC" (e.g. Lisbon winter: 0, New York: 300)
-			const sign = minutesOffset <= 0 ? "+" : "-";
-			const abs = Math.abs(minutesOffset);
-			const hh = pad2(Math.floor(abs / 60));
-			const mm = pad2(abs % 60);
-			return `UTC${sign}${hh}:${mm}`;
+			// Stop pulsing when verified; pulse otherwise
+			if (humanDotEl) {
+				if (state === "verified") {
+					humanDotEl.style.animation = "none";
+					humanDotEl.style.opacity = "0.9";
+				} else {
+					humanDotEl.style.animation = "";
+					humanDotEl.style.opacity = "";
+				}
+			}
 		}
 
-		function getShipTelemetry() {
-			const now = new Date();
+		function setSending(isSending) {
+			promptEl.disabled = isSending;
+			clearBtn.disabled = isSending;
+			modelSelect.disabled = isSending;
+			missionBtn.disabled = isSending;
 
-			const localTime = now.toLocaleString(undefined, {
-				weekday: "short",
-				year: "numeric",
-				month: "short",
-				day: "2-digit",
-				hour: "2-digit",
-				minute: "2-digit",
-				second: "2-digit",
+			if (isSending) sendBtn.disabled = true;
+			else sendBtn.disabled = !turnstileToken;
+		}
+
+		function showThinking() {
+			if (thinkingEl) return;
+			const current = MODELS.find(m => m.id === modelSelect.value) ?? MODELS[0];
+			thinkingEl = addMessage({
+				role: "assistant",
+				isHtml: true,
+				avatarOverride: current.avatar,
+				nameOverride: "The Sentinel",
+				text: `
+					<div class="thinkingRow">
+						<span class="orbit" aria-hidden="true"></span>
+						<span style="color: rgba(255,255,255,0.78); font-size: 13px;">
+							Plotting trajectory…
+						</span>
+					</div>
+				`,
 			});
-
-			const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown TZ";
-			const utcOffset = formatUtcOffset(now.getTimezoneOffset());
-
-			const locale = navigator.language || "unknown";
-			const languages = Array.isArray(navigator.languages) ? navigator.languages.join(", ") : locale;
-
-			const platform = navigator.platform || "unknown";
-			const ua = navigator.userAgent || "unknown";
-
-			const screenSize = `${window.screen?.width ?? "?"}×${window.screen?.height ?? "?"}`;
-			const viewportSize = `${window.innerWidth}×${window.innerHeight}`;
-			const dpr = window.devicePixelRatio || 1;
-
-			const cores = navigator.hardwareConcurrency ?? "unknown";
-			const mem = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "unknown";
-
-			const online = navigator.onLine ? "online" : "offline";
-			const dnt = (navigator.doNotTrack === "1" || window.doNotTrack === "1") ? "enabled" : "not enabled";
-
-			const colorScheme = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
-			const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ? "reduce" : "no-preference";
-
-			// Network Info API (not supported everywhere)
-			const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-			const netType = conn?.effectiveType || conn?.type || "unknown";
-			const downlink = conn?.downlink ? `${conn.downlink} Mbps` : "unknown";
-			const rtt = conn?.rtt ? `${conn.rtt} ms` : "unknown";
-			const saveData = conn?.saveData ? "on" : "off";
-
-			return [
-				`🛰️ Your Rocket Telemetry`,
-				`───────────────`,
-				`Time:        ${localTime}`,
-				`Timezone:    ${tz} (${utcOffset})`,
-				``,
-				`Locale:      ${locale}`,
-				`Languages:   ${languages}`,
-				``,
-				`Platform:    ${platform}`,
-				`Online:      ${online}`,
-				`DNT:         ${dnt}`,
-				``,
-				`Display:     screen ${screenSize} • viewport ${viewportSize} • DPR ${dpr}`,
-				`System:      CPU ${cores} cores • RAM ${mem}`,
-				``,
-				`Network:     ${netType} • downlink ${downlink} • RTT ${rtt} • save-data ${saveData}`,
-				``,
-				`Prefs:       scheme ${colorScheme} • motion ${reducedMotion}`,
-				``,
-				`UA:          ${ua}`,
-			].join("\n");
 		}
+
+		function hideThinking() {
+			if (!thinkingEl) return;
+			thinkingEl.remove();
+			thinkingEl = null;
+		}
+
+		function getTelemetry() {
+			const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown TZ";
+			const lang = navigator.language || "unknown";
+			const plat = navigator.platform || "platform ?";
+			const online = navigator.onLine ? "online" : "offline";
+			const dims = `${window.innerWidth}×${window.innerHeight}`;
+			const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cores` : "cores ?";
+			const mem = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "mem ?";
+			return { tz, lang, plat, online, dims, cores, mem };
+		}
+
+		function updateTelemetryFooter() {
+			const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown TZ";
+			const now = new Date();
+			const t = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+			telemetryEl.textContent = `${t} • ${tz}`;
+		}
+		updateTelemetryFooter();
+		setInterval(updateTelemetryFooter, 30_000);
 
 		missionBtn.addEventListener("click", () => {
-			const telemetry = getShipTelemetry();
-
+			const t = getTelemetry();
 			addMessage({
 				role: "assistant",
 				avatarOverride: "🛸",
 				nameOverride: "The Sentinel",
-				// render as HTML so it looks like a console readout
-				isHtml: true,
-				text: `
-      <div style="margin-bottom:8px; color: rgba(255,255,255,0.85); font-weight:700;">
-        Mission Control — ship status uplink
-      </div>
-      <pre style="
-        margin:0;
-        white-space:pre-wrap;
-        overflow-wrap:anywhere;
-        padding:10px 12px;
-        border-radius:14px;
-        border:1px solid rgba(255,255,255,0.12);
-        background: rgba(10,12,28,0.45);
-        color: rgba(255,255,255,0.86);
-        font-size: 12px;
-        line-height: 1.35;
-      ">${escapeHtml(telemetry)}</pre>
-      <div style="margin-top:8px; color: rgba(255,255,255,0.70); font-size: 12px;">
-      </div>
-    `,
+				text:
+					"Mission Control — Ship Telemetry 🛰️\n" +
+					`• Timezone: ${t.tz}\n` +
+					`• Status: ${t.online}\n` +
+					`• Viewport: ${t.dims}\n` +
+					`• Platform: ${t.plat}\n` +
+					`• Language: ${t.lang}\n` +
+					`• Compute: ${t.cores}, ${t.mem}\n\n`
 			});
 		});
 
-
-		// Seed message
 		addMessage({
 			role: "assistant",
 			avatarOverride: "🛸",
 			nameOverride: "The Sentinel",
 			text: "Welcome, traveler. Speak your question, and I’ll chart an answer through the nebula. ✨",
-		});
-
-		// Enter to send, Shift+Enter for newline
-		promptEl.addEventListener("keydown", (e) => {
-			if (e.key === "Enter" && !e.shiftKey) {
-				e.preventDefault();
-				form.requestSubmit();
-			}
 		});
 
 		clearBtn.addEventListener("click", () => {
@@ -848,10 +863,73 @@
 			promptEl.focus();
 		});
 
+		promptEl.addEventListener("keydown", (e) => {
+			if (e.key === "Enter" && !e.shiftKey) {
+				e.preventDefault();
+				form.requestSubmit();
+			}
+		});
+
+		// === Turnstile: render + state updates ===
+		function renderTurnstile() {
+			if (!window.turnstile || typeof window.turnstile.render !== "function") {
+				setTimeout(renderTurnstile, 80);
+				return;
+			}
+
+			if (turnstileWidgetId !== null) return;
+
+			setHumanStatus("Human check: awaiting signal…", "awaiting");
+
+			turnstileWidgetId = window.turnstile.render("#turnstileWidget", {
+				sitekey: TURNSTILE_SITE_KEY,
+
+				callback: (token) => {
+					// ✅ THIS is the state your submit checks
+					turnstileToken = token;
+
+					// enable Send
+					sendBtn.disabled = false;
+
+					setHumanStatus("Human check: verified 🧑‍🚀", "verified");
+				},
+
+				"expired-callback": () => {
+					turnstileToken = null;
+					sendBtn.disabled = true;
+					setHumanStatus("Human check: expired — re-verify", "expired");
+					try { window.turnstile.reset(turnstileWidgetId); } catch (_) { }
+				},
+
+				"error-callback": () => {
+					turnstileToken = null;
+					sendBtn.disabled = true;
+					setHumanStatus("Human check: error — refresh widget", "error");
+				},
+			});
+		}
+
+		// Try rendering from multiple safe points (no double-render thanks to the guard)
+		window.addEventListener("turnstile-ready", renderTurnstile);
+		document.addEventListener("DOMContentLoaded", renderTurnstile);
+		if (window.__turnstileReady) renderTurnstile();
+
+		// Submit
 		form.addEventListener("submit", async (e) => {
 			e.preventDefault();
 			const text = promptEl.value.trim();
 			if (!text) return;
+
+			if (!turnstileToken) {
+				addMessage({
+					role: "assistant",
+					avatarOverride: "🛸",
+					nameOverride: "The Sentinel",
+					text: "Human check not complete yet — solve the verification first.",
+				});
+				try { if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId); } catch (_) { }
+				return;
+			}
 
 			addMessage({ role: "user", text });
 			promptEl.value = "";
@@ -865,7 +943,11 @@
 				const resp = await fetch("/chat", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ prompt: text, model: modelSelect.value }),
+					body: JSON.stringify({
+						prompt: text,
+						model: modelSelect.value,
+						turnstileToken,
+					}),
 				});
 
 				let data = null;
@@ -880,6 +962,12 @@
 						nameOverride: "The Sentinel",
 						text: data?.error || `Backend error (${resp.status}). Check your Worker logs.`,
 					});
+
+					// force re-verify
+					turnstileToken = null;
+					sendBtn.disabled = true;
+					setHumanStatus("Human check: re-verify required", "expired");
+					try { if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId); } catch (_) { }
 					return;
 				}
 
@@ -887,15 +975,22 @@
 				addMessage({
 					role: "assistant",
 					avatarOverride: current.avatar,
-					nameOverride: "The Sentinel ",
+					nameOverride: "The Sentinel",
 					text: data?.reply ?? "No reply field returned from /chat yet.",
 				});
+
+				// One token per action: reset after each send
+				turnstileToken = null;
+				sendBtn.disabled = true;
+				setHumanStatus("Human check: awaiting signal…", "awaiting");
+				try { if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId); } catch (_) { }
+
 			} catch (err) {
 				hideThinking();
 				addMessage({
 					role: "assistant",
 					avatarOverride: "🛸",
-					nameOverride: "The Sentinel ",
+					nameOverride: "The Sentinel",
 					text: "Network error calling /chat. Is your Worker running?",
 				});
 			} finally {
