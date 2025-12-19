@@ -1,398 +1,440 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Space Talk</title>
-		<style>
-			:root {
-				--bg: #060713;
-				--panel: rgba(18, 20, 39, 0.72);
-				--panel-strong: rgba(18, 20, 39, 0.9);
-				--text: rgba(255, 255, 255, 0.92);
-				--muted: rgba(255, 255, 255, 0.66);
-				--border: rgba(255, 255, 255, 0.12);
-				--shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
-			}
 
-			* { box-sizing: border-box; }
-			html, body { height: 100%; }
-			body {
-				margin: 0;
-				font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-				color: var(--text);
-				background: var(--bg);
-				overflow: hidden;
-			}
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Space Talk</title>
+	<style>
+		:root {
+			--bg: #060713;
+			--panel: rgba(18, 20, 39, 0.72);
+			--panel-strong: rgba(18, 20, 39, 0.9);
+			--text: rgba(255, 255, 255, 0.92);
+			--muted: rgba(255, 255, 255, 0.66);
+			--border: rgba(255, 255, 255, 0.12);
+			--shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+		}
 
-			/* Real NASA image (Hubble / NASA) */
-			.bg {
-				position: fixed;
-				inset: 0;
-				background:
-					linear-gradient(180deg, rgba(6,7,19,0.55), rgba(6,7,19,0.85)),
-					url("https://www.nasa.gov/wp-content/uploads/2023/03/pillars_of_creation.jpg") center / cover no-repeat;
-				filter: saturate(1.05) contrast(1.05);
-				transform: scale(1.03);
-			}
+		* {
+			box-sizing: border-box;
+		}
 
-			/* Subtle star noise */
-			.bg::after {
-				content: "";
-				position: absolute;
-				inset: 0;
-				background-image:
-					radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
-					radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1px);
-				background-size: 140px 140px, 220px 220px;
-				background-position: 0 0, 60px 90px;
-				opacity: 0.22;
-				mix-blend-mode: screen;
-				pointer-events: none;
-			}
+		html,
+		body {
+			height: 100%;
+		}
 
-			.shell {
-				position: relative;
-				height: 100%;
-				display: grid;
-				place-items: center;
-				padding: 18px;
-			}
+		body {
+			margin: 0;
+			font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+			color: var(--text);
+			background: var(--bg);
+			overflow: hidden;
+		}
 
-			.app {
-				width: min(980px, 100%);
-				height: min(760px, 100%);
-				border: 1px solid var(--border);
-				border-radius: 20px;
-				background: var(--panel);
-				backdrop-filter: blur(12px);
-				box-shadow: var(--shadow);
-				display: grid;
-				grid-template-rows: auto 1fr auto;
-				overflow: hidden;
-			}
+		/* Real NASA image (Hubble / NASA) */
+		.bg {
+			position: fixed;
+			inset: 0;
+			background:
+				linear-gradient(180deg, rgba(6, 7, 19, 0.55), rgba(6, 7, 19, 0.85)),
+				url("https://www.nasa.gov/wp-content/uploads/2023/03/pillars_of_creation.jpg") center / cover no-repeat;
+			filter: saturate(1.05) contrast(1.05);
+			transform: scale(1.03);
+		}
 
-			header {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				padding: 14px 16px;
-				border-bottom: 1px solid var(--border);
-				background: linear-gradient(180deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
-			}
-			.brand {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-				min-width: 0;
-			}
-			.logo {
-				width: 34px;
-				height: 34px;
-				border-radius: 12px;
-				display: grid;
-				place-items: center;
-				border: 1px solid rgba(255,255,255,0.14);
-				background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0.04));
-			}
-			.title {
-				display: flex;
-				flex-direction: column;
-				line-height: 1.15;
-				min-width: 0;
-			}
-			.title strong {
-				font-size: 14px;
-				letter-spacing: 0.2px;
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
-			.title span {
-				font-size: 12px;
-				color: var(--muted);
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
+		/* Subtle star noise */
+		.bg::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background-image:
+				radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+				radial-gradient(rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+			background-size: 140px 140px, 220px 220px;
+			background-position: 0 0, 60px 90px;
+			opacity: 0.22;
+			mix-blend-mode: screen;
+			pointer-events: none;
+		}
 
+		.shell {
+			position: relative;
+			height: 100%;
+			display: grid;
+			place-items: center;
+			padding: 18px;
+		}
+
+		.app {
+			width: min(980px, 100%);
+			height: min(760px, 100%);
+			border: 1px solid var(--border);
+			border-radius: 20px;
+			background: var(--panel);
+			backdrop-filter: blur(12px);
+			box-shadow: var(--shadow);
+			display: grid;
+			grid-template-rows: auto 1fr auto;
+			overflow: hidden;
+		}
+
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 14px 16px;
+			border-bottom: 1px solid var(--border);
+			background: linear-gradient(180deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			min-width: 0;
+		}
+
+		.logo {
+			width: 34px;
+			height: 34px;
+			border-radius: 12px;
+			display: grid;
+			place-items: center;
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
+		}
+
+		.title {
+			display: flex;
+			flex-direction: column;
+			line-height: 1.15;
+			min-width: 0;
+		}
+
+		.title strong {
+			font-size: 14px;
+			letter-spacing: 0.2px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.title span {
+			font-size: 12px;
+			color: var(--muted);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.pills {
+			display: flex;
+			gap: 8px;
+		}
+
+		.pill {
+			font-size: 12px;
+			padding: 7px 10px;
+			border-radius: 999px;
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			background: rgba(255, 255, 255, 0.06);
+			color: rgba(255, 255, 255, 0.86);
+		}
+
+		main {
+			padding: 14px;
+			overflow: auto;
+		}
+
+		.chat {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			padding-bottom: 10px;
+		}
+
+		.msg {
+			display: grid;
+			grid-template-columns: 36px 1fr;
+			gap: 10px;
+			align-items: flex-start;
+		}
+
+		.avatar {
+			width: 36px;
+			height: 36px;
+			border-radius: 12px;
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			background: rgba(255, 255, 255, 0.06);
+			display: grid;
+			place-items: center;
+			font-size: 16px;
+			user-select: none;
+		}
+
+		.bubble {
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			background: rgba(7, 9, 22, 0.55);
+			border-radius: 16px;
+			padding: 10px 12px;
+			max-width: 78ch;
+		}
+
+		.meta {
+			display: flex;
+			gap: 8px;
+			align-items: baseline;
+			margin-bottom: 6px;
+		}
+
+		.who {
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.86);
+		}
+
+		.when {
+			font-size: 11px;
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		.msg.user .avatar {
+			background: rgba(255, 255, 255, 0.08);
+		}
+
+		.msg.user .bubble {
+			background: rgba(255, 255, 255, 0.08);
+			border-color: rgba(255, 255, 255, 0.14);
+		}
+
+		footer {
+			padding: 12px;
+			border-top: 1px solid var(--border);
+			background: linear-gradient(0deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
+		}
+
+		.composer {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: 10px;
+			align-items: end;
+		}
+
+		textarea {
+			width: 100%;
+			min-height: 46px;
+			max-height: 160px;
+			resize: none;
+			padding: 12px 12px;
+			border-radius: 14px;
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			background: rgba(10, 12, 28, 0.55);
+			color: var(--text);
+			outline: none;
+			line-height: 1.35;
+			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+		}
+
+		textarea::placeholder {
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		.actions {
+			display: flex;
+			gap: 8px;
+		}
+
+		button {
+			height: 46px;
+			padding: 0 14px;
+			border-radius: 14px;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			background: rgba(255, 255, 255, 0.10);
+			color: rgba(255, 255, 255, 0.92);
+			cursor: pointer;
+			font-weight: 600;
+			letter-spacing: 0.2px;
+		}
+
+		button:hover {
+			background: rgba(255, 255, 255, 0.14);
+		}
+
+		button:disabled {
+			opacity: 0.55;
+			cursor: not-allowed;
+		}
+
+		.hint {
+			margin-top: 8px;
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.62);
+		}
+
+		@media (max-width: 640px) {
 			.pills {
-				display: flex;
-				gap: 8px;
-			}
-			.pill {
-				font-size: 12px;
-				padding: 7px 10px;
-				border-radius: 999px;
-				border: 1px solid rgba(255,255,255,0.14);
-				background: rgba(255,255,255,0.06);
-				color: rgba(255,255,255,0.86);
+				display: none;
 			}
 
-			main {
-				padding: 14px;
-				overflow: auto;
-			}
-
-			.chat {
-				display: flex;
-				flex-direction: column;
-				gap: 10px;
-				padding-bottom: 10px;
-			}
-
-			.msg {
-				display: grid;
-				grid-template-columns: 36px 1fr;
-				gap: 10px;
-				align-items: flex-start;
-			}
-			.avatar {
-				width: 36px;
-				height: 36px;
-				border-radius: 12px;
-				border: 1px solid rgba(255,255,255,0.14);
-				background: rgba(255,255,255,0.06);
-				display: grid;
-				place-items: center;
-				font-size: 16px;
-				user-select: none;
-			}
 			.bubble {
-				border: 1px solid rgba(255,255,255,0.12);
-				background: rgba(7, 9, 22, 0.55);
-				border-radius: 16px;
-				padding: 10px 12px;
-				max-width: 78ch;
+				max-width: 100%;
 			}
-			.meta {
-				display: flex;
-				gap: 8px;
-				align-items: baseline;
-				margin-bottom: 6px;
-			}
-			.who { font-size: 12px; color: rgba(255,255,255,0.86); }
-			.when { font-size: 11px; color: rgba(255,255,255,0.5); }
+		}
+	</style>
+</head>
 
-			.msg.user .avatar { background: rgba(255,255,255,0.08); }
-			.msg.user .bubble {
-				background: rgba(255,255,255,0.08);
-				border-color: rgba(255,255,255,0.14);
-			}
+<body>
+	<div class="bg"></div>
 
-			footer {
-				padding: 12px;
-				border-top: 1px solid var(--border);
-				background: linear-gradient(0deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
-			}
-
-			.composer {
-				display: grid;
-				grid-template-columns: 1fr auto;
-				gap: 10px;
-				align-items: end;
-			}
-
-			textarea {
-				width: 100%;
-				min-height: 46px;
-				max-height: 160px;
-				resize: none;
-				padding: 12px 12px;
-				border-radius: 14px;
-				border: 1px solid rgba(255,255,255,0.14);
-				background: rgba(10, 12, 28, 0.55);
-				color: var(--text);
-				outline: none;
-				line-height: 1.35;
-				box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-			}
-			textarea::placeholder { color: rgba(255,255,255,0.5); }
-
-			.actions {
-				display: flex;
-				gap: 8px;
-			}
-
-			button {
-				height: 46px;
-				padding: 0 14px;
-				border-radius: 14px;
-				border: 1px solid rgba(255,255,255,0.16);
-				background: rgba(255,255,255,0.10);
-				color: rgba(255,255,255,0.92);
-				cursor: pointer;
-				font-weight: 600;
-				letter-spacing: 0.2px;
-			}
-			button:hover { background: rgba(255,255,255,0.14); }
-			button:disabled {
-				opacity: 0.55;
-				cursor: not-allowed;
-			}
-
-			.hint {
-				margin-top: 8px;
-				font-size: 12px;
-				color: rgba(255,255,255,0.62);
-			}
-
-			@media (max-width: 640px) {
-				.pills { display: none; }
-				.bubble { max-width: 100%; }
-			}
-		</style>
-	</head>
-
-	<body>
-		<div class="bg"></div>
-
-		<div class="shell">
-			<div class="app" role="application" aria-label="Space Talk chat">
-				<header>
-					<div class="brand">
-						<div class="logo" aria-hidden="true">🪐</div>
-						<div class="title">
-							<strong>Space Talk</strong>
-							<span>Local UI prototype (backend later)</span>
-						</div>
+	<div class="shell">
+		<div class="app" role="application" aria-label="Space Talk chat">
+			<header>
+				<div class="brand">
+					<div class="logo" aria-hidden="true">🪐</div>
+					<div class="title">
+						<strong>Space Talk</strong>
+						<span>Local UI prototype (backend later)</span>
 					</div>
-					<div class="pills" aria-hidden="true">
-						<div class="pill">Workers</div>
-						<div class="pill">Assets</div>
-						<div class="pill">LLM-ready</div>
-					</div>
-				</header>
+				</div>
+				<div class="pills" aria-hidden="true">
+					<div class="pill">Workers</div>
+					<div class="pill">Assets</div>
+					<div class="pill">LLM-ready</div>
+				</div>
+			</header>
 
-				<main>
-					<div id="chat" class="chat" aria-live="polite"></div>
-				</main>
+			<main>
+				<div id="chat" class="chat" aria-live="polite"></div>
+			</main>
 
-				<footer>
-					<form id="form" class="composer">
-						<textarea
-							id="prompt"
-							placeholder="Ask something about space… (Enter to send, Shift+Enter for newline)"
-							autocomplete="off"
-							spellcheck="true"
-						></textarea>
-						<div class="actions">
-							<button id="clear" type="button" title="Clear chat">Clear</button>
-							<button id="send" type="submit">Send</button>
-						</div>
-					</form>
-					<div class="hint">
-						Tip: This is UI-only for now. Next we’ll wire <code>/chat</code> to your LLM and stream tokens.
+			<footer>
+				<form id="form" class="composer">
+					<textarea id="prompt"
+						placeholder="Ask something about space… (Enter to send, Shift+Enter for newline)"
+						autocomplete="off" spellcheck="true"></textarea>
+					<div class="actions">
+						<button id="clear" type="button" title="Clear chat">Clear</button>
+						<button id="send" type="submit">Send</button>
 					</div>
-				</footer>
-			</div>
+				</form>
+				<div class="hint">
+					Tip: This is UI-only for now. Next we’ll wire <code>/chat</code> to your LLM and stream tokens.
+				</div>
+			</footer>
 		</div>
+	</div>
 
-		<script>
-			const chatEl = document.getElementById("chat");
-			const form = document.getElementById("form");
-			const promptEl = document.getElementById("prompt");
-			const sendBtn = document.getElementById("send");
-			const clearBtn = document.getElementById("clear");
+	<script>
+		const chatEl = document.getElementById("chat");
+		const form = document.getElementById("form");
+		const promptEl = document.getElementById("prompt");
+		const sendBtn = document.getElementById("send");
+		const clearBtn = document.getElementById("clear");
 
-			function nowTime() {
-				const d = new Date();
-				return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-			}
+		function nowTime() {
+			const d = new Date();
+			return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+		}
 
-			function escapeHtml(s) {
-				return s
-					.replaceAll("&", "&amp;")
-					.replaceAll("<", "&lt;")
-					.replaceAll(">", "&gt;")
-					.replaceAll('"', "&quot;")
-					.replaceAll("'", "&#039;");
-			}
+		function escapeHtml(s) {
+			return s
+				.replaceAll("&", "&amp;")
+				.replaceAll("<", "&lt;")
+				.replaceAll(">", "&gt;")
+				.replaceAll('"', "&quot;")
+				.replaceAll("'", "&#039;");
+		}
 
-			function addMessage({ role, text }) {
-				const wrap = document.createElement("div");
-				wrap.className = `msg ${role}`;
+		function addMessage({ role, text }) {
+			const wrap = document.createElement("div");
+			wrap.className = `msg ${role}`;
 
-				const avatar = document.createElement("div");
-				avatar.className = "avatar";
-				avatar.textContent = role === "user" ? "🧑‍🚀" : "🤖";
+			const avatar = document.createElement("div");
+			avatar.className = "avatar";
+			avatar.textContent = role === "user" ? "🧑‍🚀" : "🤖";
 
-				const bubble = document.createElement("div");
-				bubble.className = "bubble";
+			const bubble = document.createElement("div");
+			bubble.className = "bubble";
 
-				const meta = document.createElement("div");
-				meta.className = "meta";
-				meta.innerHTML = `
+			const meta = document.createElement("div");
+			meta.className = "meta";
+			meta.innerHTML = `
 					<span class="who">${role === "user" ? "You" : "SpaceBot"}</span>
 					<span class="when">${nowTime()}</span>
 				`;
 
-				const body = document.createElement("div");
-				body.innerHTML = escapeHtml(text).replaceAll("\n", "<br/>");
+			const body = document.createElement("div");
+			body.innerHTML = escapeHtml(text).replaceAll("\n", "<br/>");
 
-				bubble.appendChild(meta);
-				bubble.appendChild(body);
+			bubble.appendChild(meta);
+			bubble.appendChild(body);
 
-				wrap.appendChild(avatar);
-				wrap.appendChild(bubble);
+			wrap.appendChild(avatar);
+			wrap.appendChild(bubble);
 
-				chatEl.appendChild(wrap);
-				chatEl.parentElement.scrollTop = chatEl.parentElement.scrollHeight;
+			chatEl.appendChild(wrap);
+			chatEl.parentElement.scrollTop = chatEl.parentElement.scrollHeight;
+		}
+
+		function setSending(isSending) {
+			sendBtn.disabled = isSending;
+			promptEl.disabled = isSending;
+		}
+
+		// Seed
+		addMessage({
+			role: "assistant",
+			text: "Welcome to Space Talk. Ask me anything — once you bind the LLM, I’ll answer for real. 🚀",
+		});
+
+		// Enter to send, Shift+Enter for newline
+		promptEl.addEventListener("keydown", (e) => {
+			if (e.key === "Enter" && !e.shiftKey) {
+				e.preventDefault();
+				form.requestSubmit();
 			}
+		});
 
-			function setSending(isSending) {
-				sendBtn.disabled = isSending;
-				promptEl.disabled = isSending;
-			}
-
-			// Seed
+		clearBtn.addEventListener("click", () => {
+			chatEl.innerHTML = "";
 			addMessage({
 				role: "assistant",
-				text: "Welcome to Space Talk. Ask me anything — once you bind the LLM, I’ll answer for real. 🚀",
+				text: "Chat cleared. Ready for the next mission. 🛰️",
 			});
+			promptEl.focus();
+		});
 
-			// Enter to send, Shift+Enter for newline
-			promptEl.addEventListener("keydown", (e) => {
-				if (e.key === "Enter" && !e.shiftKey) {
-					e.preventDefault();
-					form.requestSubmit();
-				}
-			});
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			const text = promptEl.value.trim();
+			if (!text) return;
 
-			clearBtn.addEventListener("click", () => {
-				chatEl.innerHTML = "";
+			addMessage({ role: "user", text });
+			promptEl.value = "";
+			promptEl.focus();
+
+			// UI-only placeholder response (no backend yet)
+			setSending(true);
+			try {
+				const resp = await fetch("/chat", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ prompt: text }),
+				});
+
+				const data = await resp.json();
+
 				addMessage({
 					role: "assistant",
-					text: "Chat cleared. Ready for the next mission. 🛰️",
+					text: data.reply,
 				});
-				promptEl.focus();
-			});
 
-			form.addEventListener("submit", async (e) => {
-				e.preventDefault();
-				const text = promptEl.value.trim();
-				if (!text) return;
+			} finally {
+				setSending(false);
+			}
+		});
+	</script>
+</body>
 
-				addMessage({ role: "user", text });
-				promptEl.value = "";
-				promptEl.focus();
-
-				// UI-only placeholder response (no backend yet)
-				setSending(true);
-				try {
-					// Example: you can still call your worker route if you want:
-					// const hello = await fetch("/message").then(r => r.text());
-
-					await new Promise((r) => setTimeout(r, 350));
-					addMessage({
-						role: "assistant",
-						text:
-							`(UI prototype) Got it: "${text}".\n\nNext step: we’ll implement a /chat endpoint and stream tokens into this bubble.`,
-					});
-				} finally {
-					setSending(false);
-				}
-			});
-		</script>
-	</body>
 </html>

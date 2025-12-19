@@ -1,23 +1,35 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
-
 export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
-		switch (url.pathname) {
-			case '/message':
-				return new Response('Hello, World!');
-			case '/random':
-				return new Response(crypto.randomUUID());
-			default:
-				return new Response('Not Found', { status: 404 });
+
+		if (url.pathname === "/chat" && request.method === "POST") {
+			const { prompt } = await request.json();
+
+			const result = await env.AI.run(
+				"@cf/mistral/mistral-7b-instruct-v0.2-lora",
+				{
+					messages: [
+						{
+							role: "system",
+							content: "You are a friendly, concise, space-themed assistant."
+						},
+						{
+							role: "user",
+							content: prompt
+						}
+					],
+					temperature: 0.7,
+					max_tokens: 512
+				}
+			);
+
+			return new Response(
+				JSON.stringify({ reply: result.response }),
+				{ headers: { "Content-Type": "application/json" } }
+			);
 		}
+
+		// fallback to static UI
+		return env.ASSETS.fetch(request);
 	},
 };
