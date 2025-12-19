@@ -281,6 +281,68 @@
 				max-width: 100%;
 			}
 		}
+
+		/* Thinking bubble + spinner */
+		.thinking {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			color: rgba(255, 255, 255, 0.82);
+		}
+
+		.spinner {
+			width: 16px;
+			height: 16px;
+			border-radius: 999px;
+			border: 2px solid rgba(255, 255, 255, 0.22);
+			border-top-color: rgba(255, 255, 255, 0.9);
+			animation: spin 0.85s linear infinite;
+		}
+
+		@keyframes spin {
+			to {
+				transform: rotate(360deg);
+			}
+		}
+
+		/* Tiny star "typing" dots */
+		.dots {
+			display: inline-flex;
+			gap: 6px;
+			align-items: center;
+		}
+
+		.dot {
+			width: 6px;
+			height: 6px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.75);
+			opacity: 0.25;
+			transform: translateY(0);
+			animation: pulse 1.05s ease-in-out infinite;
+		}
+
+		.dot:nth-child(2) {
+			animation-delay: 0.15s;
+		}
+
+		.dot:nth-child(3) {
+			animation-delay: 0.30s;
+		}
+
+		@keyframes pulse {
+
+			0%,
+			100% {
+				opacity: 0.25;
+				transform: translateY(0);
+			}
+
+			50% {
+				opacity: 0.95;
+				transform: translateY(-2px);
+			}
+		}
 	</style>
 </head>
 
@@ -344,9 +406,10 @@
 				.replaceAll("'", "&#039;");
 		}
 
-		function addMessage({ role, text }) {
+		function addMessage({ role, text, id } = {}) {
 			const wrap = document.createElement("div");
 			wrap.className = `msg ${role}`;
+			if (id) wrap.dataset.id = id;
 
 			const avatar = document.createElement("div");
 			avatar.className = "avatar";
@@ -358,9 +421,9 @@
 			const meta = document.createElement("div");
 			meta.className = "meta";
 			meta.innerHTML = `
-					<span class="who">${role === "user" ? "You" : "SpaceBot"}</span>
-					<span class="when">${nowTime()}</span>
-				`;
+    <span class="who">${role === "user" ? "You" : "SpaceBot"}</span>
+    <span class="when">${nowTime()}</span>
+  `;
 
 			const body = document.createElement("div");
 			body.innerHTML = escapeHtml(text).replaceAll("\n", "<br/>");
@@ -373,7 +436,67 @@
 
 			chatEl.appendChild(wrap);
 			chatEl.parentElement.scrollTop = chatEl.parentElement.scrollHeight;
+
+			return wrap;
 		}
+
+		function addThinking() {
+			const id = `thinking-${crypto.randomUUID()}`;
+			const wrap = document.createElement("div");
+			wrap.className = "msg assistant";
+			wrap.dataset.id = id;
+
+			const avatar = document.createElement("div");
+			avatar.className = "avatar";
+			avatar.textContent = "🤖";
+
+			const bubble = document.createElement("div");
+			bubble.className = "bubble";
+
+			const meta = document.createElement("div");
+			meta.className = "meta";
+			meta.innerHTML = `
+    <span class="who">SpaceBot</span>
+    <span class="when">${nowTime()}</span>
+  `;
+
+			const body = document.createElement("div");
+			body.innerHTML = `
+    <div class="thinking">
+      <span class="spinner" aria-hidden="true"></span>
+      <span>Thinking</span>
+      <span class="dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </span>
+      <span aria-hidden="true">🛰️</span>
+    </div>
+  `;
+
+			bubble.appendChild(meta);
+			bubble.appendChild(body);
+			wrap.appendChild(avatar);
+			wrap.appendChild(bubble);
+
+			chatEl.appendChild(wrap);
+			chatEl.parentElement.scrollTop = chatEl.parentElement.scrollHeight;
+
+			return id;
+		}
+
+		function replaceMessage(id, newText) {
+			const node = chatEl.querySelector(`[data-id="${id}"]`);
+			if (!node) return;
+
+			const body = node.querySelector(".bubble > div:last-child");
+			body.innerHTML = escapeHtml(newText).replaceAll("\n", "<br/>");
+		}
+
+		function removeMessage(id) {
+			const node = chatEl.querySelector(`[data-id="${id}"]`);
+			if (node) node.remove();
+		}
+
+
 
 		function setSending(isSending) {
 			sendBtn.disabled = isSending;
@@ -412,8 +535,11 @@
 			promptEl.value = "";
 			promptEl.focus();
 
-			// UI-only placeholder response (no backend yet)
 			setSending(true);
+
+			// show “thinking…” bubble
+			const thinkingId = addThinking();
+
 			try {
 				const resp = await fetch("/chat", {
 					method: "POST",
@@ -421,17 +547,22 @@
 					body: JSON.stringify({ prompt: text }),
 				});
 
+				// If your worker returns non-200, show a friendly error
+				if (!resp.ok) {
+					const errText = await resp.text().catch(() => "");
+					replaceMessage(thinkingId, `⚠️ Error ${resp.status}. ${errText || "Try again."}`);
+					return;
+				}
+
 				const data = await resp.json();
-
-				addMessage({
-					role: "assistant",
-					text: data.reply,
-				});
-
+				replaceMessage(thinkingId, data.reply ?? "(No reply field returned)");
+			} catch (err) {
+				replaceMessage(thinkingId, `⚠️ Network error. ${err?.message || "Please retry."}`);
 			} finally {
 				setSending(false);
 			}
 		});
+
 	</script>
 </body>
 
