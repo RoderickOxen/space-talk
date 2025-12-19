@@ -34,7 +34,7 @@
 			overflow: hidden;
 		}
 
-		/* Real NASA image */
+		/* Background image */
 		.bg {
 			position: fixed;
 			inset: 0;
@@ -45,7 +45,6 @@
 			transform: scale(1.03);
 		}
 
-		/* Subtle star noise */
 		.bg::after {
 			content: "";
 			position: absolute;
@@ -60,7 +59,6 @@
 			pointer-events: none;
 		}
 
-		/* Mobile-friendly shell */
 		.shell {
 			position: relative;
 			height: 100%;
@@ -80,10 +78,11 @@
 			backdrop-filter: blur(12px);
 			box-shadow: var(--shadow);
 			display: grid;
-			grid-template-rows: auto 1fr auto;
+			grid-template-rows: auto auto 1fr auto;
 			overflow: hidden;
 		}
 
+		/* ===== Header (fix Mission Control cutoff) ===== */
 		header {
 			display: flex;
 			align-items: center;
@@ -92,6 +91,8 @@
 			border-bottom: 1px solid var(--border);
 			background: linear-gradient(180deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
 			gap: 10px;
+			flex-wrap: wrap;
+			/* key fix */
 		}
 
 		.brand {
@@ -99,6 +100,7 @@
 			align-items: center;
 			gap: 10px;
 			min-width: 0;
+			flex: 1 1 auto;
 		}
 
 		.logo {
@@ -135,13 +137,88 @@
 			text-overflow: ellipsis;
 		}
 
-		.pills {
+		.headerActions {
 			display: flex;
 			gap: 8px;
 			flex: 0 0 auto;
+			align-items: center;
 		}
 
-		.pill {
+		.chipButton {
+			height: 34px;
+			padding: 0 12px;
+			border-radius: 999px;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			background: rgba(255, 255, 255, 0.08);
+			color: rgba(255, 255, 255, 0.92);
+			cursor: pointer;
+			font-weight: 700;
+			letter-spacing: 0.2px;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			white-space: nowrap;
+			max-width: 100%;
+		}
+
+		.chipButton:hover {
+			background: rgba(255, 255, 255, 0.12);
+		}
+
+		/* ===== Model bar (fix description cutoff) ===== */
+		.modelBar {
+			padding: 12px 14px;
+			border-bottom: 1px solid var(--border);
+			background: linear-gradient(180deg, rgba(18, 20, 39, 0.55), rgba(18, 20, 39, 0.35));
+		}
+
+		.modelGrid {
+			display: grid;
+			grid-template-columns: 240px 1fr auto;
+			gap: 12px;
+			align-items: center;
+		}
+
+		.label {
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.72);
+			margin-bottom: 6px;
+		}
+
+		select {
+			width: 100%;
+			height: 42px;
+			padding: 0 12px;
+			border-radius: 14px;
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			background: rgba(10, 12, 28, 0.55);
+			color: var(--text);
+			outline: none;
+			font-weight: 650;
+		}
+
+		.modelMeta {
+			min-width: 0;
+			/* critical for ellipsis/wrap behavior */
+		}
+
+		.modelDesc {
+			font-size: 13px;
+			color: rgba(255, 255, 255, 0.78);
+			line-height: 1.35;
+			white-space: normal;
+			/* allow wrap */
+			overflow-wrap: anywhere;
+		}
+
+		.badges {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+		}
+
+		.badge {
 			font-size: 12px;
 			padding: 6px 10px;
 			border-radius: 999px;
@@ -151,7 +228,6 @@
 			white-space: nowrap;
 		}
 
-		/* Main chat area scroll */
 		main {
 			padding: 12px;
 			overflow: auto;
@@ -210,10 +286,6 @@
 			color: rgba(255, 255, 255, 0.5);
 		}
 
-		.msg.user .avatar {
-			background: rgba(255, 255, 255, 0.08);
-		}
-
 		.msg.user .bubble {
 			background: rgba(255, 255, 255, 0.08);
 			border-color: rgba(255, 255, 255, 0.14);
@@ -238,6 +310,7 @@
 			background: linear-gradient(0deg, var(--panel-strong), rgba(18, 20, 39, 0.55));
 		}
 
+		/* ===== Composer (fix Clear/Send on mobile) ===== */
 		.composer {
 			display: grid;
 			grid-template-columns: 1fr auto;
@@ -257,7 +330,6 @@
 			color: var(--text);
 			outline: none;
 			line-height: 1.35;
-			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 		}
 
 		textarea::placeholder {
@@ -266,29 +338,54 @@
 
 		.actions {
 			display: flex;
-			gap: 8px;
+			gap: 12px;
+			/* more breathing room */
+			flex-wrap: wrap;
+			justify-content: flex-end;
 		}
 
-		button {
-			height: 46px;
-			padding: 0 14px;
-			border-radius: 14px;
-			border: 1px solid rgba(255, 255, 255, 0.16);
+		.btn {
+			height: 52px;
+			/* taller = more tappable */
+			padding: 0 18px;
+			/* more horizontal space */
+			border-radius: 16px;
+			/* softer, more “theme” */
+			border: 1px solid rgba(255, 255, 255, 0.18);
 			background: rgba(255, 255, 255, 0.10);
-			color: rgba(255, 255, 255, 0.92);
+			color: rgba(255, 255, 255, 0.95);
 			cursor: pointer;
-			font-weight: 700;
-			letter-spacing: 0.2px;
+			font-weight: 800;
+			letter-spacing: 0.3px;
 			display: inline-flex;
 			align-items: center;
+			justify-content: center;
 			gap: 8px;
+			min-width: 120px;
+			/* prevents squishing */
+			transition: transform 0.08s ease, background 0.15s ease;
 		}
 
-		button:hover {
-			background: rgba(255, 255, 255, 0.14);
+		#send {
+			background: linear-gradient(180deg,
+					rgba(255, 255, 255, 0.22),
+					rgba(255, 255, 255, 0.10));
+			border-color: rgba(255, 255, 255, 0.28);
 		}
 
-		button:disabled {
+		#send:hover {
+			background: linear-gradient(180deg,
+					rgba(255, 255, 255, 0.28),
+					rgba(255, 255, 255, 0.14));
+		}
+
+
+		.btn:hover {
+			background: rgba(255, 255, 255, 0.16);
+			transform: translateY(-1px);
+		}
+
+		.btn:disabled {
 			opacity: 0.55;
 			cursor: not-allowed;
 		}
@@ -299,14 +396,13 @@
 			color: rgba(255, 255, 255, 0.62);
 		}
 
-		/* Thinking indicator bubble content */
+		/* Thinking indicator */
 		.thinkingRow {
 			display: inline-flex;
 			align-items: center;
 			gap: 10px;
 		}
 
-		/* Space “orbit” spinner */
 		.orbit {
 			width: 18px;
 			height: 18px;
@@ -341,21 +437,46 @@
 			}
 		}
 
-		/* Make it great on phones */
-		@media (max-width: 640px) {
-			.shell {
-				padding: 10px;
-				padding-top: calc(10px + env(safe-area-inset-top));
-				padding-bottom: calc(10px + env(safe-area-inset-bottom));
-			}
-
+		/* ===== Mobile fixes ===== */
+		@media (max-width: 720px) {
 			.app {
 				height: 100%;
 				border-radius: 18px;
 			}
 
-			.pills {
-				display: none;
+			.modelGrid {
+				grid-template-columns: 1fr;
+			}
+
+			.badges {
+				justify-content: flex-start;
+			}
+
+			.composer {
+				grid-template-columns: 1fr;
+			}
+
+			.actions {
+				width: 100%;
+			}
+
+			.btn {
+				flex: 1 1 0;
+				min-width: 0;
+			}
+
+
+			.headerActions {
+				width: 100%;
+				justify-content: flex-end;
+			}
+		}
+
+		@media (max-width: 420px) {
+			.shell {
+				padding: 10px;
+				padding-top: calc(10px + env(safe-area-inset-top));
+				padding-bottom: calc(10px + env(safe-area-inset-bottom));
 			}
 
 			main {
@@ -364,22 +485,6 @@
 
 			footer {
 				padding: 10px;
-			}
-
-			button {
-				padding: 0 12px;
-			}
-
-			.bubble {
-				max-width: 100%;
-			}
-
-			.composer {
-				grid-template-columns: 1fr;
-			}
-
-			.actions {
-				justify-content: flex-end;
 			}
 		}
 	</style>
@@ -395,13 +500,34 @@
 					<div class="logo" aria-hidden="true">🪐</div>
 					<div class="title">
 						<strong>Space Talk</strong>
-						<span>An edge-deployed oracle</span>
+						<span>an edge-deployed oracle</span>
 					</div>
 				</div>
-				<div class="pills" aria-hidden="true">
-					<div class="pill">Zero-Gravity Answers</div>
+
+				<div class="headerActions">
+					<button id="mission" class="chipButton" type="button" title="Mission Control">
+						Mission Control
+					</button>
 				</div>
 			</header>
+
+			<section class="modelBar" aria-label="Model selector">
+				<div class="modelGrid">
+					<div>
+						<div class="label">Oracle engine</div>
+						<select id="model"></select>
+					</div>
+
+					<div class="modelMeta">
+						<div class="label">Flight notes</div>
+						<div id="modelDesc" class="modelDesc"></div>
+					</div>
+
+					<div class="badges" aria-hidden="true">
+						<div id="power" class="badge">Power: ★★★☆☆</div>
+					</div>
+				</div>
+			</section>
 
 			<main id="scrollArea">
 				<div id="chat" class="chat" aria-live="polite"></div>
@@ -409,16 +535,16 @@
 
 			<footer>
 				<form id="form" class="composer">
-					<textarea id="prompt"
-						placeholder="Launch a question into space…"
-						autocomplete="off" spellcheck="true"></textarea>
+					<textarea id="prompt" placeholder="Launch a question into the void…" autocomplete="off"
+						spellcheck="true"></textarea>
 					<div class="actions">
-						<button id="clear" type="button" title="Clear chat">Clear</button>
-						<button id="send" type="submit">Send</button>
+						<button id="clear" class="btn" type="button" title="Clear chat">Clear</button>
+						<button id="send" class="btn" type="submit">Send</button>
 					</div>
 				</form>
 				<div class="hint">
-					Tip: Astronauts plan missions in steps — try breaking big questions into smaller ones.
+					Tip: If you want better answers, include constraints (timeframe, budget, goal) — that’s your
+					“mission profile.”
 				</div>
 			</footer>
 		</div>
@@ -432,7 +558,46 @@
 		const clearBtn = document.getElementById("clear");
 		const scrollArea = document.getElementById("scrollArea");
 
+		const modelSelect = document.getElementById("model");
+		const modelDescEl = document.getElementById("modelDesc");
+		const powerEl = document.getElementById("power");
+		const missionBtn = document.getElementById("mission");
+
 		let thinkingEl = null;
+
+		// Pick a small subset of "good general chat" free-tier models
+		const MODELS = [
+			{
+				id: "@cf/mistral/mistral-7b-instruct-v0.2-lora",
+				name: "🜁 Mistral 7B Instruct (LoRA)",
+				desc: "Mission-capable generalist. Strong instruction-following, clean structure, and reliable reasoning for most prompts.",
+				power: 4,
+				tier: "Free-tier",
+				avatar: "🜁",
+			},
+			{
+				id: "@cf/meta-llama/llama-2-7b-chat-hf-lora",
+				name: "🜂 Llama 2 7B Chat (HF LoRA)",
+				desc: "Steady deep-space cruiser. Natural conversational tone and solid summaries; less sharp on strict step-by-step tasks than Mistral.",
+				power: 3,
+				tier: "Free-tier",
+				avatar: "🜂",
+			},
+			{
+				id: "@cf/google/gemma-2b-it-lora",
+				name: "🜃 Gemma 2B IT (LoRA)",
+				desc: "Pocket probe for quick scans. Best for short, direct requests; limited depth on complex reasoning and longer multi-part missions.",
+				power: 2,
+				tier: "Free-tier",
+				avatar: "🜃",
+			},
+		];
+
+		function stars(n) {
+			const full = "★".repeat(n);
+			const empty = "☆".repeat(5 - n);
+			return full + empty;
+		}
 
 		function nowTime() {
 			const d = new Date();
@@ -449,19 +614,18 @@
 		}
 
 		function scrollToBottom() {
-			// keep it stable on mobile
 			requestAnimationFrame(() => {
 				scrollArea.scrollTop = scrollArea.scrollHeight;
 			});
 		}
 
-		function addMessage({ role, text, isHtml = false }) {
+		function addMessage({ role, text, isHtml = false, avatarOverride = null, nameOverride = null }) {
 			const wrap = document.createElement("div");
 			wrap.className = `msg ${role}`;
 
 			const avatar = document.createElement("div");
 			avatar.className = "avatar";
-			avatar.textContent = role === "user" ? "🧑‍🚀" : "🤖";
+			avatar.textContent = avatarOverride ?? (role === "user" ? "🧑‍🚀" : "🛸");
 
 			const bubble = document.createElement("div");
 			bubble.className = "bubble";
@@ -469,13 +633,12 @@
 			const meta = document.createElement("div");
 			meta.className = "meta";
 			meta.innerHTML = `
-        <span class="who">${role === "user" ? "You" : "SpaceBot"}</span>
+        <span class="who">${nameOverride ?? (role === "user" ? "You" : "The Sentinel ")}</span>
         <span class="when">${nowTime()}</span>
       `;
 
 			const body = document.createElement("div");
-			if (isHtml) body.innerHTML = text;
-			else body.innerHTML = escapeHtml(text).replaceAll("\n", "<br/>");
+			body.innerHTML = isHtml ? text : escapeHtml(text).replaceAll("\n", "<br/>");
 
 			bubble.appendChild(meta);
 			bubble.appendChild(body);
@@ -492,18 +655,24 @@
 			sendBtn.disabled = isSending;
 			promptEl.disabled = isSending;
 			clearBtn.disabled = isSending;
+			modelSelect.disabled = isSending;
+			missionBtn.disabled = isSending;
 		}
 
 		function showThinking() {
 			if (thinkingEl) return;
+			const current = MODELS.find(m => m.id === modelSelect.value) ?? MODELS[0];
+
 			thinkingEl = addMessage({
 				role: "assistant",
 				isHtml: true,
+				avatarOverride: current.avatar,
+				nameOverride: "The Sentinel",
 				text: `
           <div class="thinkingRow">
             <span class="orbit" aria-hidden="true"></span>
             <span style="color: rgba(255,255,255,0.78); font-size: 13px;">
-              SpaceBot is thinking…
+              Charting a path through the nebula…
             </span>
           </div>
         `,
@@ -516,17 +685,147 @@
 			thinkingEl = null;
 		}
 
-		// Auto-grow textarea
 		function autosize() {
 			promptEl.style.height = "auto";
 			promptEl.style.height = Math.min(promptEl.scrollHeight, 180) + "px";
 		}
 		promptEl.addEventListener("input", autosize);
 
-		// Seed
+		function setModelUI(modelId) {
+			const m = MODELS.find(x => x.id === modelId) ?? MODELS[0];
+			modelDescEl.textContent = m.desc;
+			powerEl.textContent = `Power: ${stars(m.power)}`;
+		}
+
+		// Populate model selector
+		for (const m of MODELS) {
+			const opt = document.createElement("option");
+			opt.value = m.id;
+			opt.textContent = m.name;
+			modelSelect.appendChild(opt);
+		}
+		modelSelect.value = MODELS[0].id;
+		setModelUI(modelSelect.value);
+
+		modelSelect.addEventListener("change", () => {
+			setModelUI(modelSelect.value);
+		});
+
+		function pad2(n) { return String(n).padStart(2, "0"); }
+
+		function formatUtcOffset(minutesOffset) {
+			// minutesOffset is "minutes behind UTC" (e.g. Lisbon winter: 0, New York: 300)
+			const sign = minutesOffset <= 0 ? "+" : "-";
+			const abs = Math.abs(minutesOffset);
+			const hh = pad2(Math.floor(abs / 60));
+			const mm = pad2(abs % 60);
+			return `UTC${sign}${hh}:${mm}`;
+		}
+
+		function getShipTelemetry() {
+			const now = new Date();
+
+			const localTime = now.toLocaleString(undefined, {
+				weekday: "short",
+				year: "numeric",
+				month: "short",
+				day: "2-digit",
+				hour: "2-digit",
+				minute: "2-digit",
+				second: "2-digit",
+			});
+
+			const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown TZ";
+			const utcOffset = formatUtcOffset(now.getTimezoneOffset());
+
+			const locale = navigator.language || "unknown";
+			const languages = Array.isArray(navigator.languages) ? navigator.languages.join(", ") : locale;
+
+			const platform = navigator.platform || "unknown";
+			const ua = navigator.userAgent || "unknown";
+
+			const screenSize = `${window.screen?.width ?? "?"}×${window.screen?.height ?? "?"}`;
+			const viewportSize = `${window.innerWidth}×${window.innerHeight}`;
+			const dpr = window.devicePixelRatio || 1;
+
+			const cores = navigator.hardwareConcurrency ?? "unknown";
+			const mem = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "unknown";
+
+			const online = navigator.onLine ? "online" : "offline";
+			const dnt = (navigator.doNotTrack === "1" || window.doNotTrack === "1") ? "enabled" : "not enabled";
+
+			const colorScheme = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
+			const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ? "reduce" : "no-preference";
+
+			// Network Info API (not supported everywhere)
+			const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+			const netType = conn?.effectiveType || conn?.type || "unknown";
+			const downlink = conn?.downlink ? `${conn.downlink} Mbps` : "unknown";
+			const rtt = conn?.rtt ? `${conn.rtt} ms` : "unknown";
+			const saveData = conn?.saveData ? "on" : "off";
+
+			return [
+				`🛰️ Your Rocket Telemetry`,
+				`───────────────`,
+				`Time:        ${localTime}`,
+				`Timezone:    ${tz} (${utcOffset})`,
+				``,
+				`Locale:      ${locale}`,
+				`Languages:   ${languages}`,
+				``,
+				`Platform:    ${platform}`,
+				`Online:      ${online}`,
+				`DNT:         ${dnt}`,
+				``,
+				`Display:     screen ${screenSize} • viewport ${viewportSize} • DPR ${dpr}`,
+				`System:      CPU ${cores} cores • RAM ${mem}`,
+				``,
+				`Network:     ${netType} • downlink ${downlink} • RTT ${rtt} • save-data ${saveData}`,
+				``,
+				`Prefs:       scheme ${colorScheme} • motion ${reducedMotion}`,
+				``,
+				`UA:          ${ua}`,
+			].join("\n");
+		}
+
+		missionBtn.addEventListener("click", () => {
+			const telemetry = getShipTelemetry();
+
+			addMessage({
+				role: "assistant",
+				avatarOverride: "🛸",
+				nameOverride: "The Sentinel",
+				// render as HTML so it looks like a console readout
+				isHtml: true,
+				text: `
+      <div style="margin-bottom:8px; color: rgba(255,255,255,0.85); font-weight:700;">
+        Mission Control — ship status uplink
+      </div>
+      <pre style="
+        margin:0;
+        white-space:pre-wrap;
+        overflow-wrap:anywhere;
+        padding:10px 12px;
+        border-radius:14px;
+        border:1px solid rgba(255,255,255,0.12);
+        background: rgba(10,12,28,0.45);
+        color: rgba(255,255,255,0.86);
+        font-size: 12px;
+        line-height: 1.35;
+      ">${escapeHtml(telemetry)}</pre>
+      <div style="margin-top:8px; color: rgba(255,255,255,0.70); font-size: 12px;">
+      </div>
+    `,
+			});
+		});
+
+
+		// Seed message
 		addMessage({
 			role: "assistant",
-			text: "Welcome to Space Talk. Ask me anything 🚀",
+			avatarOverride: "🛸",
+			nameOverride: "The Sentinel",
+			text: "Welcome, traveler. Speak your question, and I’ll chart an answer through the nebula. ✨",
 		});
 
 		// Enter to send, Shift+Enter for newline
@@ -542,7 +841,9 @@
 			hideThinking();
 			addMessage({
 				role: "assistant",
-				text: "Chat cleared. Ready for the next mission. 🛰️",
+				avatarOverride: "🛸",
+				nameOverride: "The Sentinel",
+				text: "Logs cleared. The stars are quiet again. 🛰️",
 			});
 			promptEl.focus();
 		});
@@ -564,34 +865,37 @@
 				const resp = await fetch("/chat", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ prompt: text }),
+					body: JSON.stringify({ prompt: text, model: modelSelect.value }),
 				});
 
 				let data = null;
-				try {
-					data = await resp.json();
-				} catch (err) {
-					// if backend returns plain text or HTML error
-				}
+				try { data = await resp.json(); } catch (_) { }
 
 				hideThinking();
 
 				if (!resp.ok) {
 					addMessage({
 						role: "assistant",
+						avatarOverride: "🛸",
+						nameOverride: "The Sentinel",
 						text: data?.error || `Backend error (${resp.status}). Check your Worker logs.`,
 					});
 					return;
 				}
 
+				const current = MODELS.find(m => m.id === modelSelect.value) ?? MODELS[0];
 				addMessage({
 					role: "assistant",
+					avatarOverride: current.avatar,
+					nameOverride: "The Sentinel ",
 					text: data?.reply ?? "No reply field returned from /chat yet.",
 				});
 			} catch (err) {
 				hideThinking();
 				addMessage({
 					role: "assistant",
+					avatarOverride: "🛸",
+					nameOverride: "The Sentinel ",
 					text: "Network error calling /chat. Is your Worker running?",
 				});
 			} finally {
